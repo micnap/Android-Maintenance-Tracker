@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="add_task_button">#ffc107</color>
+    <color name="colorAccent">#db5461</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="even_bg">#f1edee</color>
+    <color name="labels">#686963</color>
+    <color name="light_grey">#dce1e4</color>
+    <color name="list_border">#8aa29e</color>
+    <color name="odd_bg">#ffffff</color>
+    <color name="soft_black">#3a474d</color>
+    <color name="white">#ffffff</color>
+    <color name="wrench_grey">#607d8b</color>
+</resources>

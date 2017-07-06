@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mickeywilliamson.mickey.maintenance2.MainActivity"
+    android:orientation="vertical"
+    android:background="@color/light_grey">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_activity_main_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:background="?attr/colorPrimary"/>
+
+    <Button
+        android:id="@+id/addTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addTask"
+        android:text="@string/button_add_task"
+        android:layout_margin="20dp"
+        android:background="@color/add_task_button"
+        android:textColor="@color/soft_black"
+        android:textStyle="bold"/>
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="1dp"
+        android:divider="@color/list_border"
+        android:dividerHeight="1dp"
+        android:background="@drawable/listview_border"/>
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_data"/>
+
+</LinearLayout>
+
