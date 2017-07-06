@@ -1,6 +1,7 @@
 package com.mickeywilliamson.mickey.maintenance2;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,17 +13,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by mickey on 6/23/17.
- */
+class TaskAdapter<T> extends ArrayAdapter<MaintenanceTask> {
 
-public class TaskAdapter<T> extends ArrayAdapter<MaintenanceTask> {
+    private final ArrayList<MaintenanceTask> tasks;
 
-    private ArrayList<MaintenanceTask> tasks;
-
-    public TaskAdapter(Context context, int resource, List objects) {
+    public TaskAdapter(Context context, int resource, List<MaintenanceTask> objects) {
         super(context, resource, objects);
-        this.tasks = (ArrayList) objects;
+        this.tasks = (ArrayList<MaintenanceTask>) objects;
     }
 
     @Override
@@ -41,14 +38,14 @@ public class TaskAdapter<T> extends ArrayAdapter<MaintenanceTask> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public @NonNull View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         View v = convertView;
 
         // First check to see if the view is null. If so, we have to render it.
         if (v == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(R.layout.task_row, null);
+            v = inflater.inflate(R.layout.task_row, parent, false);
         }
 
         ViewHolder holder = (ViewHolder) v.getTag();
@@ -83,22 +80,25 @@ public class TaskAdapter<T> extends ArrayAdapter<MaintenanceTask> {
         return v;
     }
 
-    public static String datePieces(String date, String piece) {
+    private static String datePieces(String date, String piece) {
 
         if (date == null) {
             return null;
         }
 
         String format1 = "yyyy-MM-dd";
-        String format2 = null;
+        String format2;
         String formattedDate = null;
 
-        if (piece == "day") {
-            format2 = "d";
-        } else if (piece == "month") {
-            format2 = "MMM";
-        } else {
-            format2 = "yyyy";
+        switch (piece) {
+            case "day":
+                format2 = "d";
+                break;
+            case "month":
+                format2 = "MMM";
+                break;
+            default:
+                format2 = "yyyy";
         }
 
         try {

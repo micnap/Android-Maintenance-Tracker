@@ -42,7 +42,10 @@
         android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/no_data"/>
+        android:text="@string/no_data"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 
 </LinearLayout>
 

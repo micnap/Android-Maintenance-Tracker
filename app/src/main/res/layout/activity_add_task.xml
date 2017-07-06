@@ -1,178 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<ScrollView
+    android:id="@+id/scroll"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/light_grey"
+    tools:context="com.mickeywilliamson.mickey.maintenance2.AddTaskActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.mickeywilliamson.mickey.maintenance2.AddTaskActivity"
-    tools:layout_editor_absoluteX="8dp"
-    tools:layout_editor_absoluteY="8dp"
-    >
+    android:background="@color/light_grey">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="15dp">
-
-        <TextView
-            android:id="@+id/label_task_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:text="@string/name_label"
-            android:textColor="@color/labels"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
-
-        <EditText
-            android:id="@+id/editText_task_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="15dp"
-            android:layout_weight=".5">
+            android:padding="15dp">
 
             <TextView
-                android:id="@+id/label_frequency"
+                android:id="@+id/label_task_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
-                android:text="@string/frequency_label"
+                android:text="@string/name_label"
                 android:textColor="@color/labels"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                />
+                android:labelFor="@+id/editText_task_name"/>
 
-            <Spinner
-                android:padding="0dp"
-                android:id="@+id/spinner_frequency"
+            <EditText
+                android:id="@id/editText_task_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:dropDownWidth="match_parent"
-                style="@android:style/Widget.Holo.Light.Spinner"
+                android:ems="10"
+                android:inputType="textMultiLine"
                 />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:layout_weight=".5">
+
+                <TextView
+                    android:id="@+id/label_frequency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/frequency_label"
+                    android:textColor="@color/labels"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    />
+
+                <Spinner
+                    android:padding="0dp"
+                    android:id="@+id/spinner_frequency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="match_parent"
+                    style="@android:style/Widget.Holo.Light.Spinner"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:layout_weight=".5"
+                >
+
+                <TextView
+                    android:id="@+id/label_next_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/due_date_label"
+                    android:textColor="@color/labels"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:labelFor="@+id/nextDate"/>
+
+                <EditText
+                    android:id="@id/nextDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:typeface="monospace"
+                    android:layout_marginTop="8dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="15dp"
-            android:layout_weight=".5"
-            >
+            android:padding="15dp">
 
             <TextView
-                android:id="@+id/label_next_date"
+                android:id="@+id/label_additional_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
-                android:text="@string/due_date_label"
+                android:text="@string/additional_info_label"
                 android:textColor="@color/labels"
                 android:textSize="14sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:labelFor="@+id/additional_info"/>
 
             <EditText
-                android:id="@+id/nextDate"
+                android:id="@id/additional_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="date"
-                android:typeface="monospace"
-                android:layout_marginTop="8dp"/>
+                android:ems="10"
+                android:inputType="textMultiLine"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight=".5"
+                android:onClick="addTask"
+                android:padding="20dp"
+                android:text="@string/submit_label"/>
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight=".5"
+                android:onClick="deleteTask"
+                android:padding="20dp"
+                android:text="@string/delete"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp">
-
-        <TextView
-            android:id="@+id/label_additional_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:text="@string/additional_info_label"
-            android:textColor="@color/labels"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
-
-        <EditText
-            android:id="@+id/additional_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/buttons"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/submit"
-            android:layout_width="0dp"
-            android:layout_weight=".5"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:onClick="addTask"
-            android:text="@string/submit_label"
-            />
-
-        <Button
-            android:id="@+id/delete"
-            android:layout_width="0dp"
-            android:layout_weight=".5"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:onClick="deleteTask"
-            android:text="@string/delete"
-            />
-
-    </LinearLayout>
-
-</LinearLayout>
-
-
+</ScrollView>

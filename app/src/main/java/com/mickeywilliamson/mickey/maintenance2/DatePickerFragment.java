@@ -2,18 +2,15 @@ package com.mickeywilliamson.mickey.maintenance2;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.app.DatePickerDialog;
 import java.util.Calendar;
 
-/**
- * Created by mickey on 7/5/17.
- */
-
 public class DatePickerFragment extends DialogFragment {
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public @NonNull Dialog onCreateDialog(@NonNull Bundle savedInstanceState) {
 
         // Use the current date as the default date in the picker
         final Calendar c = Calendar.getInstance();

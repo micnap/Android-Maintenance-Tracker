@@ -5,15 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by mickey on 6/23/17.
- */
-
-public class DatabaseHandler extends SQLiteOpenHelper {
+class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "maintenance_tracker";
@@ -84,12 +79,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.getString(3),                    // Frequency
                 cursor.getString(4)                     // Additional info
         );
+
+        cursor.close();
+
         return task;
     }
 
     public List<MaintenanceTask> getAllMaintenanceTasks() {
 
-        List<MaintenanceTask> taskList = new ArrayList<MaintenanceTask>();
+        List<MaintenanceTask> taskList = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + TABLE_TASKS + " ORDER BY " + KEY_NEXTDATE + " ASC";
 
@@ -108,16 +106,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        return taskList;
-    }
-
-    public int getMaintenanceTaskCount() {
-        String countQuery = "SELECT * FROM " + TABLE_TASKS;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
         cursor.close();
 
-        return cursor.getCount();
+        return taskList;
     }
 
     public int updateMaintenanceTask(MaintenanceTask task) {

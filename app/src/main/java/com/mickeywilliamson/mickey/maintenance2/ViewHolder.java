@@ -4,11 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-/**
- * Created by mickey on 7/5/17.
- */
-
-public class ViewHolder {
+class ViewHolder {
 
     TextView task_name = null;
     TextView dayTV = null;

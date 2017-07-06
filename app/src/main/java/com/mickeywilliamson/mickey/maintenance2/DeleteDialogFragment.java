@@ -6,19 +6,16 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.widget.Toast;
 
-/**
- * Created by mickey on 6/25/17.
- */
-
 public class DeleteDialogFragment extends DialogFragment {
 
-    int taskId;
+    private int taskId;
 
     @Override
-    public Dialog onCreateDialog(final Bundle savedInstanceState) {
+    public @NonNull Dialog onCreateDialog(final @NonNull Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         taskId = bundle.getInt("id");
 

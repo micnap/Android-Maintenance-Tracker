@@ -1,9 +1,5 @@
 package com.mickeywilliamson.mickey.maintenance2;
 
-/**
- * Created by mickey on 6/23/17.
- */
-
 public class MaintenanceTask {
 
     private int mId;
@@ -13,15 +9,6 @@ public class MaintenanceTask {
     private String mAdditionalInfo;
 
     public MaintenanceTask() {}
-
-    public MaintenanceTask(String task) {
-        this.mTask = task;
-    }
-
-    public MaintenanceTask(int id, String task) {
-        this.mId = id;
-        this.mTask = task;
-    }
 
     public MaintenanceTask(String task, String nextDate, String frequency, String additionalInfo) {
         this.mTask = task;

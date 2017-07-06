@@ -1,11 +1,9 @@
 <resources>
     <string name="additional_info_label">Additional Info</string>
     <string name="app_name">Maintenance Tracker</string>
-    <string name="auto_calculated">(Automatically calculated from Frequency and Previous Date)</string>
     <string name="button_add_task">Add Maintenance Task</string>
+    <string name="button_update">Update</string>
     <string name="cancel">Cancel</string>
-    <string name="column_heading_date">Date</string>
-    <string name="column_heading_task">Maintenance Task</string>
     <string name="delete">Delete</string>
     <string name="delete_confirm_message">Are you sure you want to delete?</string>
     <string name="due_date_label">Next Due Date *</string>
@@ -13,11 +11,11 @@
     <string name="frequency_label">Frequency *</string>
     <string name="name_label">Task Name *</string>
     <string name="no_data">No maintenance tasks added</string>
-    <string name="previous_date_hint">Date task was last completed</string>
-    <string name="previous_date_label">Previous Date</string>
     <string name="submit_label">Submit</string>
     <string name="success">Item updated!</string>
     <string name="task_deleted">Task deleted</string>
+    <string name="task_icon">Task icon</string>
+    <string name="update_task">Update Maintenance Task</string>
     <string name="valid_date">Enter a valid date.</string>
     <string name="valid_frequency">Choose a frequency.</string>
     <string name="valid_name">Enter a valid task name.</string>
