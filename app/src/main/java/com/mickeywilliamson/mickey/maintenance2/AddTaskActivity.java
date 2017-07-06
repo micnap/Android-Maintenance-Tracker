@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +40,8 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+        // Get task id from main activity for updating task.
+        // If it doesn't exist, we create a new task.
         Intent mIntent = getIntent();
         mTaskId = mIntent.getIntExtra("task_id", -1);
 
@@ -52,13 +53,15 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         Button mDelete = (Button) findViewById(R.id.delete);
         Button mAddUpdate = (Button) findViewById(R.id.submit);
 
-        // Only enabled and shown on task update, not when a new task is created.
+        // Delete button only enabled and shown on task update, not when a new task is created.
         mDelete.setEnabled(false);
         mDelete.setVisibility(View.GONE);
 
+        // Display the frequency array items in the dropdown.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, frequency);
         mFrequency.setAdapter(adapter);
 
+        // Open the date picker on the date field.
         mNextDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,15 +75,14 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
             DatabaseHandler db = new DatabaseHandler(this);
             MaintenanceTask task = db.getMaintenanceTask(mTaskId);
 
+            // Poplulate form fields with task data.
             mTaskName.setText(task.getTask());
             mNextDate.setText(formatDate(task.getNextDate(), DB_TO_DISPLAY));
+            mAdditionalInfo.setText(task.getAdditionalInfo());
             int index = Arrays.asList(frequency).indexOf(task.getFrequency());
             if (index != -1) {
                 mFrequency.setSelection(index);
             }
-
-            //mFrequency.set;
-            mAdditionalInfo.setText(task.getAdditionalInfo());
 
             // Enable and show delete button since we have a valid task to delete.
             mDelete.setEnabled(true);
@@ -94,6 +96,9 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         }
     }
 
+    /**
+     * Deletes specified task.
+     */
     public void deleteTask(View view) {
         DialogFragment newFragment = new DeleteDialogFragment();
         Bundle bundle = new Bundle();
@@ -102,57 +107,61 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         newFragment.show(getSupportFragmentManager(), "deleteTask");
     }
 
-
-
+    /**
+     * Adds new maintenance task.
+     */
     public void addTask(View view) {
-        if (mTaskName != null) {
-            DatabaseHandler db = new DatabaseHandler(this);
-            long result;
-            boolean error = false;
+        DatabaseHandler db = new DatabaseHandler(this);
+        long result;
+        boolean error = false;
 
-            String taskName = mTaskName.getText().toString().trim();
-            if (taskName.equals("")) {
-                mTaskName.setError(getResources().getString(R.string.valid_name));
-                error = true;
-            }
+        // Validates task name.
+        String taskName = mTaskName.getText().toString().trim();
+        if (taskName.equals("")) {
+            mTaskName.setError(getResources().getString(R.string.valid_name));
+            error = true;
+        }
 
-            String frequencyValue = mFrequency.getSelectedItem().toString();
-            if (Arrays.asList(frequency).indexOf(frequencyValue) < 1) {
-                ((TextView)mFrequency.getSelectedView()).setError(getResources().getString(R.string.valid_frequency));
-                error = true;
-            }
+        // Validates task frequency.
+        String frequencyValue = mFrequency.getSelectedItem().toString();
+        if (Arrays.asList(frequency).indexOf(frequencyValue) < 1) {
+            ((TextView)mFrequency.getSelectedView()).setError(getResources().getString(R.string.valid_frequency));
+            error = true;
+        }
 
-            String nextDate = mNextDate.getText().toString();
-            if (!isValidDate(nextDate)) {
-                mNextDate.setError(getResources().getString(R.string.valid_date));
-                error = true;
-            }
-            if (error) {
-                return;
-            }
+        // Validates date.
+        String nextDate = mNextDate.getText().toString();
+        if (!isValidDate(nextDate)) {
+            mNextDate.setError(getResources().getString(R.string.valid_date));
+            error = true;
+        }
+        if (error) {
+            return;
+        }
 
-            // If a valid id exists, update the item.  Otherwise, add a new item.
-            if (mTaskId == -1) {
-                result = db.addMaintenanceTask(new MaintenanceTask(taskName, formatDate(mNextDate.getText().toString(), DISPLAY_TO_DB), mFrequency.getSelectedItem().toString(), mAdditionalInfo.getText().toString()));
-            } else {
-                result = db.updateMaintenanceTask(new MaintenanceTask(mTaskId, mTaskName.getText().toString(), formatDate(mNextDate.getText().toString(), DISPLAY_TO_DB), mFrequency.getSelectedItem().toString(), mAdditionalInfo.getText().toString()));
-            }
+        // If a valid id exists, update the item.  Otherwise, add a new item.
+        if (mTaskId == -1) {
+            result = db.addMaintenanceTask(new MaintenanceTask(taskName, formatDate(mNextDate.getText().toString(), DISPLAY_TO_DB), mFrequency.getSelectedItem().toString(), mAdditionalInfo.getText().toString()));
+        } else {
+            result = db.updateMaintenanceTask(new MaintenanceTask(mTaskId, mTaskName.getText().toString(), formatDate(mNextDate.getText().toString(), DISPLAY_TO_DB), mFrequency.getSelectedItem().toString(), mAdditionalInfo.getText().toString()));
+        }
 
-            // Give feedback on success/failure of action.
-            if (result > -1) {
-                Toast.makeText(this, R.string.success, Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, R.string.failure, Toast.LENGTH_SHORT).show();
-            }
+        // Give feedback on success/failure of action.
+        if (result > -1) {
+            Toast.makeText(this, R.string.success, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, R.string.failure, Toast.LENGTH_SHORT).show();
         }
     }
 
+    /**
+     * Determines whether a date is valid.
+     */
     private boolean isValidDate(String date) {
-        boolean result = false;
 
         String[] dateArray = date.split("/");
         if (dateArray.length != 3) {
-            return result;
+            return false;
         }
         int month = Integer.parseInt(dateArray[0]);
         int day = Integer.parseInt(dateArray[1]);
@@ -162,13 +171,17 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         int currentYear = cal.get(Calendar.YEAR);
 
         if (month > 0 && month < 13 && day > 0 && day < 32 && year >= (currentYear - 3) && year <= (currentYear+10)) {
-            result = true;
+            return true;
         }
 
-        return result;
+        return false;
     }
 
-
+    /**
+     * Formats a date to be displayed on screen or saved in the database.
+     * They needs to be stored yyyy-mm-dd format in the database so that
+     * they can be ordered properly for display in listview.
+     */
     private static String formatDate(String date, int direction) {
 
         if (date == null) {
@@ -211,7 +224,6 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         EditText mNextDate = (EditText) findViewById(R.id.nextDate);
         mNextDate.setText(formattedDate);
         mNextDate.setError(null);
-
     }
 }
 
