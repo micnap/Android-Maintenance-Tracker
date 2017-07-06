@@ -13,6 +13,7 @@
     <string name="no_data">No maintenance tasks added</string>
     <string name="submit_label">Submit</string>
     <string name="success">Item updated!</string>
+    <string name="success_add">Item added!</string>
     <string name="task_deleted">Task deleted</string>
     <string name="task_icon">Task icon</string>
     <string name="update_task">Update Maintenance Task</string>

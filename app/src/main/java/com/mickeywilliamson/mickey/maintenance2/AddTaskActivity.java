@@ -149,7 +149,11 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
 
         // Give feedback on success/failure of action.
         if (result > -1) {
-            Toast.makeText(this, R.string.success, Toast.LENGTH_SHORT).show();
+            if (mTaskId == -1) {
+                Toast.makeText(this, R.string.success_add, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, R.string.success, Toast.LENGTH_SHORT).show();
+            }
         } else {
             Toast.makeText(this, R.string.failure, Toast.LENGTH_SHORT).show();
         }

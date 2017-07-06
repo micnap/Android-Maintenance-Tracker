@@ -89,5 +89,6 @@ public class MainActivity extends ListActivity {
         db.addMaintenanceTask(new MaintenanceTask("Service weed whacker", "2018-03-01", "Every year", "Mower guy - 717-555-1212"));
         db.addMaintenanceTask(new MaintenanceTask("Prune bushes", "2018-4-01", "Every year", null));
         db.addMaintenanceTask(new MaintenanceTask("Winterize AC", "2017-10-01", "Every year", null));
+
     }
 }
