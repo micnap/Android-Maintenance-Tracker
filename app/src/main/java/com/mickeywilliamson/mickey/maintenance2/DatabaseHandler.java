@@ -42,7 +42,6 @@ class DatabaseHandler extends SQLiteOpenHelper {
     public long addMaintenanceTask(MaintenanceTask task){
 
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
 
         values.put(KEY_TASK, task.getTask());
@@ -56,6 +55,9 @@ class DatabaseHandler extends SQLiteOpenHelper {
         return result;
     }
 
+    /**
+     * Retrieve a maintenance task.
+     */
     public MaintenanceTask getMaintenanceTask(int id) {
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -85,6 +87,9 @@ class DatabaseHandler extends SQLiteOpenHelper {
         return task;
     }
 
+    /**
+     * Get all maintenance tasks ordered by date ascending.
+     */
     public List<MaintenanceTask> getAllMaintenanceTasks() {
 
         List<MaintenanceTask> taskList = new ArrayList<>();
@@ -111,6 +116,9 @@ class DatabaseHandler extends SQLiteOpenHelper {
         return taskList;
     }
 
+    /**
+     * Update maintenance task.
+     */
     public int updateMaintenanceTask(MaintenanceTask task) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -124,6 +132,9 @@ class DatabaseHandler extends SQLiteOpenHelper {
         return db.update(TABLE_TASKS, values, KEY_ID + " = ?", new String[] {String.valueOf(task.getId())});
     }
 
+    /**
+     * Delete maintenance task.
+     */
     public void deleteMaintenanceTask(MaintenanceTask task) {
 
         SQLiteDatabase db = this.getWritableDatabase();

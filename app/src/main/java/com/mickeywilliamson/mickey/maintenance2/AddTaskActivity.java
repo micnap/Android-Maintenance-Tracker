@@ -1,6 +1,7 @@
 package com.mickeywilliamson.mickey.maintenance2;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -77,7 +78,7 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
 
             // Poplulate form fields with task data.
             mTaskName.setText(task.getTask());
-            mNextDate.setText(formatDate(task.getNextDate(), DB_TO_DISPLAY));
+            mNextDate.setText(formatDate(task.getNextDate(), DB_TO_DISPLAY, getApplicationContext()));
             mAdditionalInfo.setText(task.getAdditionalInfo());
             int index = Arrays.asList(frequency).indexOf(task.getFrequency());
             if (index != -1) {
@@ -141,9 +142,9 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
 
         // If a valid id exists, update the item.  Otherwise, add a new item.
         if (mTaskId == -1) {
-            result = db.addMaintenanceTask(new MaintenanceTask(taskName, formatDate(mNextDate.getText().toString(), DISPLAY_TO_DB), mFrequency.getSelectedItem().toString(), mAdditionalInfo.getText().toString()));
+            result = db.addMaintenanceTask(new MaintenanceTask(taskName, formatDate(mNextDate.getText().toString(), DISPLAY_TO_DB, getApplicationContext()), mFrequency.getSelectedItem().toString(), mAdditionalInfo.getText().toString()));
         } else {
-            result = db.updateMaintenanceTask(new MaintenanceTask(mTaskId, mTaskName.getText().toString(), formatDate(mNextDate.getText().toString(), DISPLAY_TO_DB), mFrequency.getSelectedItem().toString(), mAdditionalInfo.getText().toString()));
+            result = db.updateMaintenanceTask(new MaintenanceTask(mTaskId, mTaskName.getText().toString(), formatDate(mNextDate.getText().toString(), DISPLAY_TO_DB, getApplicationContext()), mFrequency.getSelectedItem().toString(), mAdditionalInfo.getText().toString()));
         }
 
         // Give feedback on success/failure of action.
@@ -170,11 +171,7 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         Calendar cal = Calendar.getInstance();
         int currentYear = cal.get(Calendar.YEAR);
 
-        if (month > 0 && month < 13 && day > 0 && day < 32 && year >= (currentYear - 3) && year <= (currentYear+10)) {
-            return true;
-        }
-
-        return false;
+        return (month > 0 && month < 13 && day > 0 && day < 32 && year >= (currentYear - 3) && year <= (currentYear+10));
     }
 
     /**
@@ -182,7 +179,7 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
      * They needs to be stored yyyy-mm-dd format in the database so that
      * they can be ordered properly for display in listview.
      */
-    private static String formatDate(String date, int direction) {
+    private static String formatDate(String date, int direction, Context context) {
 
         if (date == null) {
             return null;
@@ -206,17 +203,15 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
             Date parsedDate = originalFormat.parse(date);
             formattedDate = targetFormat.format(parsedDate);  // 20120821
         } catch(Exception e) {
-            //e.printStackTrace();
+            Toast.makeText(context, R.string.failure + ": " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         return formattedDate;
     }
 
     @Override
-    /**
-     * Passes date back from datepicker fragment.
-     */
     public void onDateSet(DatePicker view, int year, int month, int day) {
+        //Passes date back from datepicker fragment.
         Calendar cal = Calendar.getInstance();
         cal.set(year, month, day);
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");

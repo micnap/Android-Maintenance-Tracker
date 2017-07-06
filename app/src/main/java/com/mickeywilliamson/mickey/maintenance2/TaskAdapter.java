@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,10 +18,13 @@ import java.util.List;
 class TaskAdapter<T> extends ArrayAdapter<MaintenanceTask> {
 
     private final ArrayList<MaintenanceTask> tasks;
+    Context context;
 
     public TaskAdapter(Context context, int resource, List<MaintenanceTask> objects) {
         super(context, resource, objects);
         this.tasks = (ArrayList<MaintenanceTask>) objects;
+        this.context = context;
+
     }
 
     @Override
@@ -67,9 +72,9 @@ class TaskAdapter<T> extends ArrayAdapter<MaintenanceTask> {
             holder.task_name.setText(String.valueOf(tasks.get(position).getTask()));
         }
         if (tasks.get(position).getNextDate() != null) {
-            holder.dayTV.setText(datePieces(tasks.get(position).getNextDate(), "day"));
-            holder.monthTV.setText(datePieces(tasks.get(position).getNextDate(), "month"));
-            holder.yearTV.setText(datePieces(tasks.get(position).getNextDate(), "year"));
+            holder.dayTV.setText(datePieces(tasks.get(position).getNextDate(), "day", context));
+            holder.monthTV.setText(datePieces(tasks.get(position).getNextDate(), "month", context));
+            holder.yearTV.setText(datePieces(tasks.get(position).getNextDate(), "year", context));
         }
 
         // Get static fields.
@@ -80,7 +85,7 @@ class TaskAdapter<T> extends ArrayAdapter<MaintenanceTask> {
         return v;
     }
 
-    private static String datePieces(String date, String piece) {
+    private static String datePieces(String date, String piece, Context context) {
 
         if (date == null) {
             return null;
@@ -107,7 +112,7 @@ class TaskAdapter<T> extends ArrayAdapter<MaintenanceTask> {
             Date parsedDate = originalFormat.parse(date);
             formattedDate = targetFormat.format(parsedDate);  // 20120821
         } catch(Exception e) {
-            //e.printStackTrace();
+            Toast.makeText(context, R.string.failure + ": " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         return formattedDate;

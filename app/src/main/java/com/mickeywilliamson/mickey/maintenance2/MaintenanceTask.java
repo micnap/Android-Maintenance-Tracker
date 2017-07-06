@@ -33,9 +33,7 @@ public class MaintenanceTask {
         this.mId = id;
     }
 
-    public String getTask() {
-        return mTask;
-    }
+    public String getTask() { return mTask; }
 
     public void setTask(String task) {
         this.mTask = task;
