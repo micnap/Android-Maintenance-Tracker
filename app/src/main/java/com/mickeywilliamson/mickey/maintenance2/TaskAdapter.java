@@ -18,7 +18,7 @@ import java.util.List;
 class TaskAdapter<T> extends ArrayAdapter<MaintenanceTask> {
 
     private final ArrayList<MaintenanceTask> tasks;
-    Context context;
+    private final Context context;
 
     public TaskAdapter(Context context, int resource, List<MaintenanceTask> objects) {
         super(context, resource, objects);
